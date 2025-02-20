@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="delete_password_button_bg">#412222</color>
+    <color name="delete_button_ripple">#412222</color>
     <color name="black">#000000</color>
     <color name="search_field_bg">#191919</color>
     <color name="nav_bar">#1A1A1A</color>

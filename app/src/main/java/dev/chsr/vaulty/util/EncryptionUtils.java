@@ -2,7 +2,6 @@ package dev.chsr.vaulty.util;
 
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.util.Log;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -58,6 +57,6 @@ public class EncryptionUtils {
         String encryptedData = Base64.getEncoder().encodeToString(
                 cipher.doFinal(decrypted.getBytes(StandardCharsets.UTF_8))
         );
-        return new String[] {encryptedData, IV};
+        return new String[]{encryptedData, IV};
     }
 }

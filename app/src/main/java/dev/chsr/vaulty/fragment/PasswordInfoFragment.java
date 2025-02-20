@@ -1,11 +1,6 @@
 package dev.chsr.vaulty.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import java.io.IOException;
-import java.io.Serializable;
 import java.security.GeneralSecurityException;
 
 import dev.chsr.vaulty.R;
 import dev.chsr.vaulty.model.PasswordEntity;
-import dev.chsr.vaulty.util.EncryptionUtils;
 import dev.chsr.vaulty.viewmdel.PasswordViewModel;
 
 public class PasswordInfoFragment extends Fragment {
@@ -43,8 +39,9 @@ public class PasswordInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             passwordId = getArguments().getInt(ARG_PASSWORD_ID);
-        } else
+        } else {
             switchFragment();
+        }
     }
 
     @Override
@@ -53,6 +50,7 @@ public class PasswordInfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_password_info, container, false);
         PasswordViewModel passwordViewModel = new ViewModelProvider(requireActivity()).get(PasswordViewModel.class);
         PasswordEntity passwordEntity = passwordViewModel.getPasswordById(passwordId);
+        if (passwordEntity == null) return view;
 
         EditText titleEditText = view.findViewById(R.id.passwordInfoFormTitleEditText);
         EditText passwordEditText = view.findViewById(R.id.passwordInfoFormPasswordEditText);
@@ -66,9 +64,10 @@ public class PasswordInfoFragment extends Fragment {
         } catch (GeneralSecurityException | IOException e) {
             Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
         }
-        Button save = view.findViewById(R.id.saveButton);
+        Button saveButton = view.findViewById(R.id.saveButton);
+        Button deleteButton = view.findViewById(R.id.deleteButton);
 
-        save.setOnClickListener(v -> {
+        saveButton.setOnClickListener(v -> {
             try {
                 passwordEntity.setTitle(titleEditText.getText().toString());
                 passwordEntity.setPassword(passwordEditText.getText().toString());
@@ -79,6 +78,11 @@ public class PasswordInfoFragment extends Fragment {
             } catch (GeneralSecurityException | IOException e) {
                 Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        deleteButton.setOnClickListener(v -> {
+            passwordViewModel.delete(passwordEntity);
+            switchFragment();
         });
 
         return view;

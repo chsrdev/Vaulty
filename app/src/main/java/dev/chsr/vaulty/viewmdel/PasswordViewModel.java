@@ -1,7 +1,6 @@
 package dev.chsr.vaulty.viewmdel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,14 +9,13 @@ import androidx.room.Room;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import dev.chsr.vaulty.data.AppDatabase;
 import dev.chsr.vaulty.data.PasswordDao;
 import dev.chsr.vaulty.model.PasswordEntity;
 
 public class PasswordViewModel extends AndroidViewModel {
-    private PasswordDao passwordDao;
+    private final PasswordDao passwordDao;
     private LiveData<List<PasswordEntity>> allPasswords;
 
     public PasswordViewModel(@NonNull Application application) {
@@ -40,8 +38,13 @@ public class PasswordViewModel extends AndroidViewModel {
     }
 
     public void update(PasswordEntity passwordEntity) {
+        new Thread(() -> passwordDao.update(passwordEntity)).start();
+    }
+
+    public void delete(PasswordEntity passwordEntity) {
         new Thread(() -> {
-            passwordDao.update(passwordEntity);
+            passwordDao.delete(passwordEntity);
+            allPasswords = getAllPasswords();
         }).start();
     }
 
@@ -49,7 +52,7 @@ public class PasswordViewModel extends AndroidViewModel {
         if (allPasswords.getValue() == null || allPasswords.getValue().isEmpty())
             return null;
 
-        List<PasswordEntity> ids =  allPasswords.getValue().stream().filter(passwordEntity -> passwordEntity.id == id).collect(Collectors.toList());
+        List<PasswordEntity> ids = allPasswords.getValue().stream().filter(passwordEntity -> passwordEntity.id == id).collect(Collectors.toList());
 
         if (ids.size() == 1)
             return ids.get(0);

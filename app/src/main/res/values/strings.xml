@@ -9,4 +9,5 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="add_password">add password</string>
+    <string name="save">save</string>
 </resources>

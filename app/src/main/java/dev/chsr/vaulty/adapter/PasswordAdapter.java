@@ -1,11 +1,14 @@
 package dev.chsr.vaulty.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
@@ -13,14 +16,18 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 import dev.chsr.vaulty.R;
+import dev.chsr.vaulty.fragment.PasswordInfoFragment;
+import dev.chsr.vaulty.fragment.PasswordListFragment;
 import dev.chsr.vaulty.util.EncryptionUtils;
 import dev.chsr.vaulty.model.PasswordEntity;
 
 public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.PasswordViewHolder> {
-    private List<PasswordEntity> passwordEntries;
+    private final List<PasswordEntity> passwordEntries;
+    private final FragmentActivity fragmentActivity;
 
-    public PasswordAdapter(List<PasswordEntity> passwordEntries) {
+    public PasswordAdapter(List<PasswordEntity> passwordEntries, FragmentActivity fragmentActivity) {
         this.passwordEntries = passwordEntries;
+        this.fragmentActivity = fragmentActivity;
     }
 
     @Override
@@ -35,8 +42,15 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.Passwo
         PasswordEntity passwordEntry = passwordEntries.get(position);
         try {
             holder.title.setText(EncryptionUtils.decrypt(passwordEntry.encryptedTitle, passwordEntry.titleIV));
+            holder.itemView.setOnClickListener(view -> {
+                fragmentActivity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer, PasswordInfoFragment.newInstance(passwordEntry.id))
+                        .setReorderingAllowed(true)
+                        .commit();
+            });
         } catch (GeneralSecurityException | IOException e) {
-            throw new RuntimeException(e);
+            Toast.makeText(holder.itemView.getContext(), "Error", Toast.LENGTH_SHORT).show();
         }
     }
 

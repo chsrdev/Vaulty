@@ -9,6 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import dev.chsr.vaulty.data.AppDatabase;
 import dev.chsr.vaulty.data.PasswordDao;
@@ -35,6 +37,24 @@ public class PasswordViewModel extends AndroidViewModel {
             passwordDao.insert(passwordEntry);
             allPasswords = passwordDao.getPasswords();
         }).start();
+    }
+
+    public void update(PasswordEntity passwordEntity) {
+        new Thread(() -> {
+            passwordDao.update(passwordEntity);
+        }).start();
+    }
+
+    public PasswordEntity getPasswordById(int id) {
+        if (allPasswords.getValue() == null || allPasswords.getValue().isEmpty())
+            return null;
+
+        List<PasswordEntity> ids =  allPasswords.getValue().stream().filter(passwordEntity -> passwordEntity.id == id).collect(Collectors.toList());
+
+        if (ids.size() == 1)
+            return ids.get(0);
+        else
+            return null;
     }
 
     public void clear() {

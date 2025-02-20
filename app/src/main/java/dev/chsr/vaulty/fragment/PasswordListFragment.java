@@ -53,7 +53,7 @@ public class PasswordListFragment extends Fragment {
             if (!passwords.isEmpty()) {
                 RecyclerView passwordListView = view.findViewById(R.id.passwordList);
                 passwordListView.setLayoutManager(new LinearLayoutManager(getContext()));
-                passwordListView.setAdapter(new PasswordAdapter(passwords));
+                passwordListView.setAdapter(new PasswordAdapter(passwords, requireActivity()));
             }
         });
 

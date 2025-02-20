@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -16,6 +17,12 @@ public interface PasswordDao {
 
     @Query("SELECT * FROM passwords")
     LiveData<List<PasswordEntity>> getPasswords();
+
+    @Query("SELECT * FROM passwords WHERE id = :id")
+    PasswordEntity getPasswordById(int id);
+
+    @Update
+    void update(PasswordEntity passwordEntity);
 
     @Query("DELETE FROM passwords WHERE id = :id")
     void delete(int id);

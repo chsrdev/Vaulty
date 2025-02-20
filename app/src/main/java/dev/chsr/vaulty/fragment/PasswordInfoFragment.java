@@ -1,0 +1,94 @@
+package dev.chsr.vaulty.fragment;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.security.GeneralSecurityException;
+
+import dev.chsr.vaulty.R;
+import dev.chsr.vaulty.model.PasswordEntity;
+import dev.chsr.vaulty.util.EncryptionUtils;
+import dev.chsr.vaulty.viewmdel.PasswordViewModel;
+
+public class PasswordInfoFragment extends Fragment {
+
+    private static final String ARG_PASSWORD_ID = "password";
+    private int passwordId;
+
+    public PasswordInfoFragment() {
+    }
+
+    public static PasswordInfoFragment newInstance(int passwordId) {
+        PasswordInfoFragment fragment = new PasswordInfoFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PASSWORD_ID, passwordId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            passwordId = getArguments().getInt(ARG_PASSWORD_ID);
+        } else
+            switchFragment();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_password_info, container, false);
+        PasswordViewModel passwordViewModel = new ViewModelProvider(requireActivity()).get(PasswordViewModel.class);
+        PasswordEntity passwordEntity = passwordViewModel.getPasswordById(passwordId);
+
+        EditText titleEditText = view.findViewById(R.id.passwordInfoFormTitleEditText);
+        EditText passwordEditText = view.findViewById(R.id.passwordInfoFormPasswordEditText);
+        EditText emailEditText = view.findViewById(R.id.passwordInfoFormEmailEditText);
+        EditText notesEditText = view.findViewById(R.id.passwordInfoFormNotesEditText);
+        try {
+            titleEditText.setText(passwordEntity.getTitle());
+            passwordEditText.setText(passwordEntity.getPassword());
+            emailEditText.setText(passwordEntity.getEmail());
+            notesEditText.setText(passwordEntity.getNotes());
+        } catch (GeneralSecurityException | IOException e) {
+            Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
+        }
+        Button save = view.findViewById(R.id.saveButton);
+
+        save.setOnClickListener(v -> {
+            try {
+                passwordEntity.setTitle(titleEditText.getText().toString());
+                passwordEntity.setPassword(passwordEditText.getText().toString());
+                passwordEntity.setEmail(emailEditText.getText().toString());
+                passwordEntity.setNotes(notesEditText.getText().toString());
+                passwordViewModel.update(passwordEntity);
+                switchFragment();
+            } catch (GeneralSecurityException | IOException e) {
+                Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
+    }
+
+    private void switchFragment() {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, new PasswordListFragment())
+                .setReorderingAllowed(true)
+                .commit();
+    }
+}

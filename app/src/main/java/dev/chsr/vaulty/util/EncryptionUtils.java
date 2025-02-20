@@ -1,18 +1,13 @@
-package dev.chsr.vaulty.data;
+package dev.chsr.vaulty.util;
 
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Log;
 
-import androidx.room.Ignore;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
@@ -43,7 +38,6 @@ public class EncryptionUtils {
         SecretKey secretKey = getSecretKey();
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
 
-        Log.i("iv",IV);
         byte[] IVBytes = Base64.getDecoder().decode(IV);
         byte[] encryptedBytes = Base64.getDecoder().decode(encrypted);
 

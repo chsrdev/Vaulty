@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gray"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -21,7 +21,7 @@
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/nav_bar_gray"
+        android:background="@color/nav_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragmentContainer">
 
@@ -29,7 +29,7 @@
             android:id="@+id/passwordsBtn"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:backgroundTint="@color/nav_bar_gray"
+            android:backgroundTint="@color/nav_bar"
             android:contentDescription="@string/passwords"
             android:radius="64dp"
             android:scaleType="centerInside"
@@ -44,7 +44,7 @@
             android:id="@+id/addPasswordBtn"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:backgroundTint="@color/nav_bar_gray"
+            android:backgroundTint="@color/nav_bar"
             android:contentDescription="@string/new_password"
             android:scaleType="centerInside"
             android:src="@drawable/plus"
@@ -58,7 +58,7 @@
             android:id="@+id/settingsBtn"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:backgroundTint="@color/nav_bar_gray"
+            android:backgroundTint="@color/nav_bar"
             android:contentDescription="@string/settings"
             android:scaleType="centerInside"
             android:src="@drawable/settings"

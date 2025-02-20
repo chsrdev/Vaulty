@@ -48,7 +48,7 @@ public class PasswordListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_password_list, container, false);
-        passwordViewModel = new ViewModelProvider(this).get(PasswordViewModel.class);
+        passwordViewModel = new ViewModelProvider(requireActivity()).get(PasswordViewModel.class);
         passwordViewModel.getAllPasswords().observe(getViewLifecycleOwner(), passwords -> {
             if (!passwords.isEmpty()) {
                 RecyclerView passwordListView = view.findViewById(R.id.passwordList);

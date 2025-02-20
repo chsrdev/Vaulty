@@ -13,7 +13,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 import dev.chsr.vaulty.R;
-import dev.chsr.vaulty.data.EncryptionUtils;
+import dev.chsr.vaulty.util.EncryptionUtils;
 import dev.chsr.vaulty.model.PasswordEntity;
 
 public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.PasswordViewHolder> {
@@ -34,7 +34,6 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.Passwo
     public void onBindViewHolder(PasswordViewHolder holder, int position) {
         PasswordEntity passwordEntry = passwordEntries.get(position);
         try {
-            Log.i("pwdID", String.valueOf(passwordEntry.id));
             holder.title.setText(EncryptionUtils.decrypt(passwordEntry.encryptedTitle, passwordEntry.titleIV));
         } catch (GeneralSecurityException | IOException e) {
             throw new RuntimeException(e);

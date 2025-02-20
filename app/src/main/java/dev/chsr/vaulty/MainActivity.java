@@ -1,7 +1,6 @@
 package dev.chsr.vaulty;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -11,25 +10,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.List;
-import java.util.Objects;
-
-import dev.chsr.vaulty.adapter.PasswordAdapter;
-import dev.chsr.vaulty.data.EncryptionUtils;
 import dev.chsr.vaulty.fragment.NewPasswordFragment;
 import dev.chsr.vaulty.fragment.PasswordListFragment;
 import dev.chsr.vaulty.fragment.SettingsFragment;
-import dev.chsr.vaulty.model.PasswordEntity;
-import dev.chsr.vaulty.viewmdel.PasswordViewModel;
 
 public class MainActivity extends AppCompatActivity {
-    FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.TransitionInflater;
 
 import dev.chsr.vaulty.R;
 import dev.chsr.vaulty.model.PasswordEntity;
@@ -23,6 +24,17 @@ public class NewPasswordFragment extends Fragment {
     boolean isCanAddPassword = false;
 
     public NewPasswordFragment() {
+    }
+
+    public static NewPasswordFragment newInstance(Fragment fromFragment) {
+        TransitionInflater inflater = TransitionInflater.from(fromFragment.requireActivity());
+        NewPasswordFragment fragment = new NewPasswordFragment();
+        if (fromFragment instanceof PasswordListFragment || fromFragment instanceof PasswordInfoFragment) {
+            fragment.setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+        } else {
+            fragment.setEnterTransition(inflater.inflateTransition(R.transition.slide_left));
+        }
+        return fragment;
     }
 
     @Override
@@ -71,11 +83,8 @@ public class NewPasswordFragment extends Fragment {
                         emailEditText.getText().toString(),
                         notesEditText.getText().toString()
                 ));
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentContainer, new PasswordListFragment())
-                        .setReorderingAllowed(true)
-                        .commit();
+                setExitTransition(TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide_left));
+                FragmentSwitcher.changeFragment(requireActivity().getSupportFragmentManager(), new PasswordListFragment());
             } catch (Exception e) {
                 Toast.makeText(requireActivity(), "Error!", Toast.LENGTH_SHORT).show();
             }

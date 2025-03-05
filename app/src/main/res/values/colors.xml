@@ -11,6 +11,7 @@
     <color name="new_password_form_field_bg">#242424</color>
     <color name="password_item_bg">#323232</color>
     <color name="text_hint">#3B3B3B</color>
-    <color name="search_text">#808080</color>
+    <color name="search_text_hint">#3D3D3D</color>
+    <color name="search_text">#EEEEEE</color>
     <color name="white">#FFFFFF</color>
 </resources>

@@ -1,5 +1,8 @@
 package dev.chsr.vaulty.adapter;
 
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Handler;
 
 import dev.chsr.vaulty.R;
+import dev.chsr.vaulty.fragment.FragmentSwitcher;
 import dev.chsr.vaulty.fragment.PasswordInfoFragment;
 import dev.chsr.vaulty.model.PasswordEntity;
 import dev.chsr.vaulty.util.EncryptionUtils;
@@ -42,12 +48,15 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.Passwo
         try {
             holder.title.setText(EncryptionUtils.decrypt(passwordEntry.encryptedTitle, passwordEntry.titleIV));
             holder.itemView.setOnClickListener(view ->
-                    fragmentActivity.getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragmentContainer, PasswordInfoFragment.newInstance(passwordEntry.id))
-                            .setReorderingAllowed(true)
-                            .commit()
+                    FragmentSwitcher.changeFragment(fragmentActivity.getSupportFragmentManager(),
+                            PasswordInfoFragment.newInstance(passwordEntry.id))
             );
+            holder.itemView.setAlpha(0);
+            holder.itemView.postDelayed(() -> {
+                ObjectAnimator fadeIn = ObjectAnimator.ofFloat(holder.itemView, "alpha", 0f, 1f);
+                fadeIn.setDuration(100);
+                fadeIn.start();
+            }, position * 100L);
         } catch (GeneralSecurityException | IOException e) {
             Toast.makeText(holder.itemView.getContext(), "Error", Toast.LENGTH_SHORT).show();
         }

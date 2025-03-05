@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.TransitionInflater;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -37,10 +38,13 @@ public class PasswordInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_left));
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
         if (getArguments() != null) {
             passwordId = getArguments().getInt(ARG_PASSWORD_ID);
         } else {
-            switchFragment();
+            FragmentSwitcher.changeFragment(requireActivity().getSupportFragmentManager(), new PasswordListFragment());
         }
     }
 
@@ -74,7 +78,7 @@ public class PasswordInfoFragment extends Fragment {
                 passwordEntity.setEmail(emailEditText.getText().toString());
                 passwordEntity.setNotes(notesEditText.getText().toString());
                 passwordViewModel.update(passwordEntity);
-                switchFragment();
+                FragmentSwitcher.changeFragment(requireActivity().getSupportFragmentManager(), new PasswordListFragment());
             } catch (GeneralSecurityException | IOException e) {
                 Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
             }
@@ -82,17 +86,9 @@ public class PasswordInfoFragment extends Fragment {
 
         deleteButton.setOnClickListener(v -> {
             passwordViewModel.delete(passwordEntity);
-            switchFragment();
+            FragmentSwitcher.changeFragment(requireActivity().getSupportFragmentManager(), new PasswordListFragment());
         });
 
         return view;
-    }
-
-    private void switchFragment() {
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, new PasswordListFragment())
-                .setReorderingAllowed(true)
-                .commit();
     }
 }

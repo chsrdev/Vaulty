@@ -3,11 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.SettingsFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsClearButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SETTINGS" />
-
+        android:layout_margin="15dp"
+        android:layout_marginHorizontal="10dp"
+        android:backgroundTint="@color/delete_password_button_bg"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="12dp"
+        android:text="@string/clear_all_passwords"
+        android:textColor="@color/white"
+        android:textSize="29sp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/delete_button_ripple" />
 </FrameLayout>

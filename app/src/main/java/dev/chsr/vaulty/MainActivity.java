@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import dev.chsr.vaulty.fragment.FragmentSwitcher;
 import dev.chsr.vaulty.fragment.NewPasswordFragment;
 import dev.chsr.vaulty.fragment.PasswordListFragment;
 import dev.chsr.vaulty.fragment.SettingsFragment;
@@ -34,26 +34,19 @@ public class MainActivity extends AppCompatActivity {
         ImageButton newPasswordButton = findViewById(R.id.addPasswordBtn);
         ImageButton settingsButton = findViewById(R.id.settingsBtn);
 
+        fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
-            Bundle bundle = new Bundle();
-
-            getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.fragmentContainer, PasswordListFragment.class, bundle)
-                    .commit();
+            FragmentSwitcher.changeFragment(getSupportFragmentManager(), new PasswordListFragment());
         }
 
-        fragmentManager = getSupportFragmentManager();
 
-        passwordListButton.setOnClickListener(view -> changeFragment(new PasswordListFragment()));
-        newPasswordButton.setOnClickListener(view -> changeFragment(new NewPasswordFragment()));
-        settingsButton.setOnClickListener(view -> changeFragment(new SettingsFragment()));
-    }
-
-    void changeFragment(Fragment fragment) {
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .setReorderingAllowed(true)
-                .commit();
+        passwordListButton.setOnClickListener(view -> FragmentSwitcher.changeFragment(
+                getSupportFragmentManager(), new PasswordListFragment()));
+        newPasswordButton.setOnClickListener(view ->
+                FragmentSwitcher.changeFragment(getSupportFragmentManager(),
+                        NewPasswordFragment.newInstance(fragmentManager.findFragmentByTag("CURRENT")))
+        );
+        settingsButton.setOnClickListener(view -> FragmentSwitcher.changeFragment(
+                getSupportFragmentManager(), new SettingsFragment()));
     }
 }

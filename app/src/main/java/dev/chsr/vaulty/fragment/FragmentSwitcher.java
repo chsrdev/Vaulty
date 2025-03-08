@@ -13,9 +13,13 @@ public class FragmentSwitcher {
             return;
         if (currentFragment instanceof NewPasswordFragment) {
             TransitionInflater inflater = TransitionInflater.from(currentFragment.requireContext());
+            currentFragment.setExitTransition(inflater.inflateTransition(R.transition.slide_right));
             if (fragment instanceof SettingsFragment)
                 currentFragment.setExitTransition(inflater.inflateTransition(R.transition.slide_left));
-            else
+        } else if (currentFragment instanceof PasswordListFragment) {
+            TransitionInflater inflater = TransitionInflater.from(currentFragment.requireContext());
+            currentFragment.setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+            if (fragment instanceof PasswordInfoFragment)
                 currentFragment.setExitTransition(inflater.inflateTransition(R.transition.slide_right));
         }
 

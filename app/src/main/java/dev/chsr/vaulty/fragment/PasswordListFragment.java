@@ -32,6 +32,7 @@ import dev.chsr.vaulty.model.PasswordEntity;
 import dev.chsr.vaulty.viewmdel.PasswordViewModel;
 
 public class PasswordListFragment extends Fragment {
+    private static boolean isStart = true;
 
     public PasswordListFragment() {
     }
@@ -65,7 +66,17 @@ public class PasswordListFragment extends Fragment {
     EditText searchEditText;
     RecyclerView passwordListView;
     FragmentActivity fragmentActivity;
+    PasswordViewModel passwordViewModel;
     List<PasswordEntity> passwords = new ArrayList<>();
+
+    private void animateAdapter() {
+        passwordListView.postOnAnimationDelayed(() -> {
+            passwordViewModel.getAllPasswords().observe(fragmentActivity, passwordEntities -> {
+                passwords = passwordEntities;
+                initRecyclerView();
+            });
+        }, 50);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,7 +87,12 @@ public class PasswordListFragment extends Fragment {
         passwordListView = view.findViewById(R.id.passwordList);
         passwordListView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        PasswordViewModel passwordViewModel = new ViewModelProvider(fragmentActivity).get(PasswordViewModel.class);
+        passwordViewModel = new ViewModelProvider(fragmentActivity).get(PasswordViewModel.class);
+
+        if (isStart){
+            animateAdapter();
+            isStart = false;
+        }
 
         // recycler view initialization after end of transition
         ((Transition) getEnterTransition()).addListener(
@@ -88,12 +104,7 @@ public class PasswordListFragment extends Fragment {
 
                     @Override
                     public void onTransitionEnd(@NonNull Transition transition) {
-                        passwordListView.postOnAnimationDelayed(() -> {
-                            passwordViewModel.getAllPasswords().observe(fragmentActivity, passwordEntities -> {
-                                passwords = passwordEntities;
-                                initRecyclerView();
-                            });
-                        }, 50);
+                        animateAdapter();
                     }
 
                     @Override

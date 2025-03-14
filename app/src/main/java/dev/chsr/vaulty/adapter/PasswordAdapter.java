@@ -1,8 +1,6 @@
 package dev.chsr.vaulty.adapter;
 
 import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Handler;
 
 import dev.chsr.vaulty.R;
 import dev.chsr.vaulty.fragment.FragmentSwitcher;

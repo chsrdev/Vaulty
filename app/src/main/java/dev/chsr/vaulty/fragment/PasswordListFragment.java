@@ -1,13 +1,11 @@
 package dev.chsr.vaulty.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -56,7 +54,7 @@ public class PasswordListFragment extends Fragment {
             try {
                 return pwd.getTitle().contains(searchText);
             } catch (GeneralSecurityException | IOException e) {
-                Toast.makeText(fragmentActivity, "Error", Toast.LENGTH_SHORT);
+                Toast.makeText(fragmentActivity, "Error", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }).collect(Collectors.toList()), fragmentActivity));
@@ -70,12 +68,11 @@ public class PasswordListFragment extends Fragment {
     List<PasswordEntity> passwords = new ArrayList<>();
 
     private void animateAdapter() {
-        passwordListView.postOnAnimationDelayed(() -> {
+        passwordListView.postOnAnimationDelayed(() ->
             passwordViewModel.getAllPasswords().observe(fragmentActivity, passwordEntities -> {
                 passwords = passwordEntities;
                 initRecyclerView();
-            });
-        }, 50);
+            }), 50);
     }
 
     @Override
@@ -95,7 +92,9 @@ public class PasswordListFragment extends Fragment {
         }
 
         // recycler view initialization after end of transition
-        ((Transition) getEnterTransition()).addListener(
+        Transition enterTransition = (Transition) getEnterTransition();
+        if (enterTransition != null)
+            enterTransition.addListener(
                 new Transition.TransitionListener() {
                     @Override
                     public void onTransitionStart(@NonNull Transition transition) {

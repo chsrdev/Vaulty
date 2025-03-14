@@ -9,6 +9,7 @@ import dev.chsr.vaulty.R;
 public class FragmentSwitcher {
     public static void changeFragment(FragmentManager fragmentManager, Fragment fragment) {
         Fragment currentFragment = fragmentManager.findFragmentByTag("CURRENT");
+
         if (currentFragment != null && currentFragment.getClass() == fragment.getClass())
             return;
         if (currentFragment instanceof NewPasswordFragment) {

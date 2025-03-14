@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
             FragmentSwitcher.changeFragment(getSupportFragmentManager(), new PasswordListFragment());
         }
 
-
         passwordListButton.setOnClickListener(view -> FragmentSwitcher.changeFragment(
                 getSupportFragmentManager(), new PasswordListFragment()));
         newPasswordButton.setOnClickListener(view ->

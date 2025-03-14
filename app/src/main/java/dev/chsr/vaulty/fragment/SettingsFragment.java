@@ -35,6 +35,7 @@ public class SettingsFragment extends Fragment {
             passwordViewModel.clear();
             FragmentSwitcher.changeFragment(requireActivity().getSupportFragmentManager(), new PasswordListFragment());
         });
+
         return view;
     }
 }

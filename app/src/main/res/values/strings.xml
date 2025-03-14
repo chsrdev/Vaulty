@@ -12,4 +12,7 @@
     <string name="save">save</string>
     <string name="delete">delete</string>
     <string name="clear_all_passwords">Clear all passwords</string>
+    <string name="_import">Import</string>
+    <string name="export">Export</string>
+    <string name="regenerate_master_password">Regenerate Master Password</string>
 </resources>

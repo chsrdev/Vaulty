@@ -17,6 +17,7 @@ import java.security.GeneralSecurityException;
 
 import dev.chsr.vaulty.R;
 import dev.chsr.vaulty.model.PasswordEntity;
+import dev.chsr.vaulty.util.EncryptionUtils;
 import dev.chsr.vaulty.viewmdel.PasswordViewModel;
 
 public class PasswordInfoFragment extends Fragment {

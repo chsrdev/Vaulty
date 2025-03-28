@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.util.Base64;
+import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -58,5 +59,15 @@ public class EncryptionUtils {
                 cipher.doFinal(decrypted.getBytes(StandardCharsets.UTF_8))
         );
         return new String[]{encryptedData, IV};
+    }
+
+    public static String generatePassword() {
+        StringBuilder pwd = new StringBuilder();
+        Random rnd = new Random();
+        int length = rnd.nextInt(12) + 12;
+        for (int i = 0; i < length; i++) {
+            pwd.append((char) (rnd.nextInt(126 - 33) + 33));
+        }
+        return pwd.toString();
     }
 }

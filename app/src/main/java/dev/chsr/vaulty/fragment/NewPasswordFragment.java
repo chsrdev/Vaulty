@@ -18,6 +18,7 @@ import androidx.transition.TransitionInflater;
 
 import dev.chsr.vaulty.R;
 import dev.chsr.vaulty.model.PasswordEntity;
+import dev.chsr.vaulty.util.EncryptionUtils;
 import dev.chsr.vaulty.viewmdel.PasswordViewModel;
 
 public class NewPasswordFragment extends Fragment {
@@ -47,6 +48,7 @@ public class NewPasswordFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_password, container, false);
         Button addPasswordBtn = view.findViewById(R.id.newPasswordAddButton);
+        Button generateBtn = view.findViewById(R.id.generateBtn);
         EditText titleEditText = view.findViewById(R.id.newPasswordFormTitleEditText);
         EditText passwordEditText = view.findViewById(R.id.newPasswordFormPasswordEditText);
         EditText emailEditText = view.findViewById(R.id.newPasswordFormEmailEditText);
@@ -88,6 +90,10 @@ public class NewPasswordFragment extends Fragment {
             } catch (Exception e) {
                 Toast.makeText(requireActivity(), "Error!", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        generateBtn.setOnClickListener(v -> {
+            passwordEditText.setText(EncryptionUtils.generatePassword());
         });
 
         return view;

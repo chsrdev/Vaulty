@@ -13,64 +13,29 @@
         android:layout_margin="15dp"
         android:layout_marginHorizontal="10dp"
         android:backgroundTint="@color/delete_password_button_bg"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="12dp"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="8dp"
         android:text="@string/clear_all_passwords"
         android:textColor="@color/white"
-        android:textSize="29sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/delete_button_ripple" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/importButton"
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/useCustomMasterPWDCheckbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:layout_marginHorizontal="10dp"
-        android:backgroundTint="@color/settings_button_bg"
         android:paddingHorizontal="8dp"
         android:paddingVertical="12dp"
-        android:text="@string/_import"
+        android:checked="false"
+        android:text="@string/use_custom_master_password"
         android:textColor="@color/white"
-        android:textSize="29sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"
-        app:layout_constraintTop_toBottomOf="@id/settingsClearButton"
-        app:rippleColor="@color/settings_button_ripple" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/exportButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_marginHorizontal="10dp"
-        android:backgroundTint="@color/settings_button_bg"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="12dp"
-        android:text="@string/export"
-        android:textColor="@color/white"
-        android:textSize="29sp"
-        android:textStyle="bold"
-        app:cornerRadius="8dp"
-        app:layout_constraintTop_toBottomOf="@id/importButton"
-        app:rippleColor="@color/settings_button_ripple" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/regenerateMasterPasswordButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_marginHorizontal="10dp"
-        android:backgroundTint="@color/settings_button_bg"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="12dp"
-        android:text="@string/regenerate_master_password"
-        android:textColor="@color/white"
-        android:textSize="29sp"
-        android:textStyle="bold"
-        app:cornerRadius="8dp"
-        app:layout_constraintTop_toBottomOf="@id/exportButton"
-        app:rippleColor="@color/settings_button_ripple" />
+        app:layout_constraintTop_toBottomOf="@id/settingsClearButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

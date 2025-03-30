@@ -32,6 +32,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.security.crypto)
+    implementation(libs.navigation.ui)
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
     implementation(libs.appcompat)

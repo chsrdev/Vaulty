@@ -16,4 +16,7 @@
     <string name="export">Export</string>
     <string name="regenerate_master_password">Regenerate Master Password</string>
     <string name="generate_password">Generate password</string>
+    <string name="use_custom_master_password">Use custom master password</string>
+    <string name="master_password">Master Password</string>
+    <string name="enter">enter</string>
 </resources>

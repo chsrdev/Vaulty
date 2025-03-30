@@ -11,6 +11,7 @@
     <color name="new_password_form_field_bg">#242424</color>
     <color name="generate_pwd_btn_bg">#252830</color>
     <color name="password_item_bg">#323232</color>
+    <color name="enter_button_bg">#323232</color>
     <color name="text_hint">#3B3B3B</color>
     <color name="search_text_hint">#3D3D3D</color>
     <color name="delete_password_button_bg">#562D2D</color>

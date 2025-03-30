@@ -1,6 +1,8 @@
 package dev.chsr.vaulty;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -9,11 +11,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import dev.chsr.vaulty.fragment.FragmentSwitcher;
 import dev.chsr.vaulty.fragment.NewPasswordFragment;
 import dev.chsr.vaulty.fragment.PasswordListFragment;
 import dev.chsr.vaulty.fragment.SettingsFragment;
+import dev.chsr.vaulty.util.SecurePrefs;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
@@ -21,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!getIntent().getBooleanExtra("passed", false)
+            && getPreferences(MODE_PRIVATE).getBoolean("customMasterPassword", false))
+                startActivity(new Intent(this, MasterPasswordActivity.class));
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 

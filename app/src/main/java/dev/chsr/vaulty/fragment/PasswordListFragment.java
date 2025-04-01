@@ -67,14 +67,6 @@ public class PasswordListFragment extends Fragment {
     PasswordViewModel passwordViewModel;
     List<PasswordEntity> passwords = new ArrayList<>();
 
-    private void animateAdapter() {
-        passwordListView.postOnAnimationDelayed(() ->
-            passwordViewModel.getAllPasswords().observe(fragmentActivity, passwordEntities -> {
-                passwords = passwordEntities;
-                initRecyclerView();
-            }), 50);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,45 +76,11 @@ public class PasswordListFragment extends Fragment {
         passwordListView = view.findViewById(R.id.passwordList);
         passwordListView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        passwordViewModel = new ViewModelProvider(fragmentActivity).get(PasswordViewModel.class);
-
-        if (isStart){
-            animateAdapter();
-            isStart = false;
-        }
-
-        // recycler view initialization after end of transition
-        Transition enterTransition = (Transition) getEnterTransition();
-        if (enterTransition != null)
-            enterTransition.addListener(
-                new Transition.TransitionListener() {
-                    @Override
-                    public void onTransitionStart(@NonNull Transition transition) {
-
-                    }
-
-                    @Override
-                    public void onTransitionEnd(@NonNull Transition transition) {
-                        animateAdapter();
-                    }
-
-                    @Override
-                    public void onTransitionCancel(@NonNull Transition transition) {
-
-                    }
-
-                    @Override
-                    public void onTransitionPause(@NonNull Transition transition) {
-
-                    }
-
-                    @Override
-                    public void onTransitionResume(@NonNull Transition transition) {
-
-                    }
-                }
-
-        );
+        passwordViewModel = new ViewModelProvider(this).get(PasswordViewModel.class);
+        passwordViewModel.getAllPasswords().observe(getViewLifecycleOwner(), passwordEntities -> {
+            passwords = passwordEntities;
+            initRecyclerView();
+        });
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override

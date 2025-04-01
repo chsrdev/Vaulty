@@ -19,4 +19,6 @@
     <string name="use_custom_master_password">Use custom master password</string>
     <string name="master_password">Master Password</string>
     <string name="enter">enter</string>
+    <string name="add">Add</string>
+    <string name="list">List</string>
 </resources>

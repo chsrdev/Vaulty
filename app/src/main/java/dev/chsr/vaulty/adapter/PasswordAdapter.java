@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
+import dev.chsr.vaulty.MainActivity;
 import dev.chsr.vaulty.R;
 import dev.chsr.vaulty.fragment.FragmentSwitcher;
 import dev.chsr.vaulty.fragment.PasswordInfoFragment;
@@ -44,8 +45,8 @@ public class PasswordAdapter extends RecyclerView.Adapter<PasswordAdapter.Passwo
         try {
             holder.title.setText(EncryptionUtils.decrypt(passwordEntry.encryptedTitle, passwordEntry.titleIV));
             holder.itemView.setOnClickListener(view ->
-                    FragmentSwitcher.changeFragment(fragmentActivity.getSupportFragmentManager(),
-                            PasswordInfoFragment.newInstance(passwordEntry.id))
+                FragmentSwitcher.changeFragment(fragmentActivity.getSupportFragmentManager(),
+                                PasswordInfoFragment.newInstance(passwordEntry.id))
             );
             holder.itemView.setAlpha(0);
             holder.itemView.postDelayed(() -> {

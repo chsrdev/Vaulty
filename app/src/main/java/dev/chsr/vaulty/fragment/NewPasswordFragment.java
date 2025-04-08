@@ -92,9 +92,9 @@ public class NewPasswordFragment extends Fragment {
             }
         });
 
-        generateBtn.setOnClickListener(v -> {
-            passwordEditText.setText(EncryptionUtils.generatePassword());
-        });
+        generateBtn.setOnClickListener(v ->
+            passwordEditText.setText(EncryptionUtils.generatePassword())
+        );
 
         return view;
     }

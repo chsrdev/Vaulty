@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Vaulty</string>
+    <string name="passwords">Пароли</string>
+    <string name="settings">Настройки</string>
+    <string name="new_password">Добавить пароль</string>
+    <string name="search">Поиск</string>
+    <string name="title">Название</string>
+    <string name="notes">Заметки</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
+    <string name="add_password">Добавить пароль</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="clear_all_passwords">Удалить все пароли</string>
+    <string name="_import">Импорт</string>
+    <string name="export">Экспорт</string>
+    <string name="generate_password">Сгенерировать пароль</string>
+    <string name="use_custom_master_password">Использовать пароль для входа</string>
+    <string name="master_password">Пароль для входа</string>
+    <string name="enter">Войти</string>
+    <string name="add">Добавить</string>
+    <string name="list">Список</string>
+    <string-array name="languages_array">
+        <item>Русский</item>
+        <item>Английский</item>
+    </string-array>
+</resources>

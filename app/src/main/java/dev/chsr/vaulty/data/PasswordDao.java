@@ -25,6 +25,9 @@ public interface PasswordDao {
     @Delete
     void delete(PasswordEntity passwordEntity);
 
+    @Query("SELECT * FROM passwords WHERE id=:id")
+    LiveData<List<PasswordEntity>> getPassword(int id);
+
     @Query("DELETE FROM passwords")
     void clear();
 }

@@ -14,6 +14,8 @@
     <color name="enter_button_bg">#323232</color>
     <color name="text_hint">#3B3B3B</color>
     <color name="search_text_hint">#3D3D3D</color>
+    <color name="confirm_password_button_bg">#2C3925</color>
+    <color name="confirm_button_ripple">#2C3925</color>
     <color name="delete_password_button_bg">#562D2D</color>
     <color name="delete_button_ripple">#562D2D</color>
     <color name="search_text">#EEEEEE</color>

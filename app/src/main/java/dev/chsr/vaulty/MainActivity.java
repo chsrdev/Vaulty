@@ -2,9 +2,12 @@ package dev.chsr.vaulty;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -39,15 +42,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         FragmentSwitcher.changeFragment(fragmentManager, new PasswordListFragment());
-        bottomNavigationView= findViewById(R.id.navigation_bar);
+        bottomNavigationView = findViewById(R.id.navigation_bar);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.password_list) {
                 FragmentSwitcher.changeFragment(fragmentManager, new PasswordListFragment());
                 return true;
             } else if (item.getItemId() == R.id.new_password_btn) {
-                Log.i("asd", "asdasdasd");
                 FragmentSwitcher.changeFragment(fragmentManager, NewPasswordFragment.newInstance(fragmentManager.findFragmentByTag("CURRENT")));
                 return true;
             } else if (item.getItemId() == R.id.settings) {
@@ -56,5 +57,14 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        getOnBackPressedDispatcher().addCallback(this,
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        FragmentSwitcher.changeFragment(fragmentManager, new PasswordListFragment());
+                        bottomNavigationView.setSelectedItemId(R.id.password_list);
+                    }
+                });
     }
 }

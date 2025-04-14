@@ -19,6 +19,11 @@ public class MasterPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getPreferences(MODE_PRIVATE).getBoolean("customMasterPassword", false)) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_master_password);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

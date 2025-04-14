@@ -1,6 +1,8 @@
 package dev.chsr.vaulty;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -28,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!getIntent().getBooleanExtra("passed", false)
-                && getPreferences(MODE_PRIVATE).getBoolean("customMasterPassword", false))
-            startActivity(new Intent(this, MasterPasswordActivity.class));
-
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
@@ -47,12 +45,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.password_list) {
                 FragmentSwitcher.changeFragment(fragmentManager, new PasswordListFragment());
+                Log.i("id", bottomNavigationView.getSelectedItemId()+"");
                 return true;
             } else if (item.getItemId() == R.id.new_password_btn) {
                 FragmentSwitcher.changeFragment(fragmentManager, NewPasswordFragment.newInstance(fragmentManager.findFragmentByTag("CURRENT")));
+                Log.i("id", bottomNavigationView.getSelectedItemId()+"");
                 return true;
             } else if (item.getItemId() == R.id.settings) {
                 FragmentSwitcher.changeFragment(fragmentManager, new SettingsFragment());
+                Log.i("id", bottomNavigationView.getSelectedItemId()+"");
                 return true;
             }
             return false;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void handleOnBackPressed() {
                         FragmentSwitcher.changeFragment(fragmentManager, new PasswordListFragment());
-                        bottomNavigationView.setSelectedItemId(R.id.password_list);
+                        bottomNavigationView.setSelectedItemId(0);
                     }
                 });
     }

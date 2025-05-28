@@ -45,15 +45,12 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.password_list) {
                 FragmentSwitcher.changeFragment(fragmentManager, new PasswordListFragment());
-                Log.i("id", bottomNavigationView.getSelectedItemId()+"");
                 return true;
             } else if (item.getItemId() == R.id.new_password_btn) {
                 FragmentSwitcher.changeFragment(fragmentManager, NewPasswordFragment.newInstance(fragmentManager.findFragmentByTag("CURRENT")));
-                Log.i("id", bottomNavigationView.getSelectedItemId()+"");
                 return true;
             } else if (item.getItemId() == R.id.settings) {
                 FragmentSwitcher.changeFragment(fragmentManager, new SettingsFragment());
-                Log.i("id", bottomNavigationView.getSelectedItemId()+"");
                 return true;
             }
             return false;

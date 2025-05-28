@@ -1,7 +1,10 @@
 package dev.chsr.vaulty;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,7 +23,8 @@ public class MasterPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getPreferences(MODE_PRIVATE).getBoolean("customMasterPassword", false)) {
+        SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+        if (!prefs.getBoolean("customMasterPassword", false)) {
             startActivity(new Intent(this, MainActivity.class));
         }
 
@@ -41,7 +45,6 @@ public class MasterPasswordActivity extends AppCompatActivity {
         enterButton.setOnClickListener(v -> {
             String hashedInput = EncryptionUtils.sha256(masterPasswordText.getText().toString());
             Intent passIntent = new Intent(this, MainActivity.class);
-            passIntent.putExtra("passed", true);
             if (savedHash.equals("0")) {
                 SecurePrefs.saveData(SecurePrefs.MASTER_PASSWORD_HASH, hashedInput);
                 startActivity(passIntent);

@@ -1,5 +1,7 @@
 package dev.chsr.vaulty.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.LocaleManager;
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +49,7 @@ public class SettingsFragment extends Fragment {
         Button clearButton = view.findViewById(R.id.settingsClearButton);
         CheckBox customMasterPasswordCheckBox = view.findViewById(R.id.useCustomMasterPWDCheckbox);
         PasswordViewModel passwordViewModel = new ViewModelProvider(requireActivity()).get(PasswordViewModel.class);
-        SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences prefs = requireActivity().getSharedPreferences("Prefs", MODE_PRIVATE);
         customMasterPasswordCheckBox.setChecked(prefs.getBoolean("customMasterPassword", false));
         clearButton.setOnClickListener(v -> {
             passwordViewModel.clear();
